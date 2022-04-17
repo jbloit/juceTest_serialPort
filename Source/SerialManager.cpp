@@ -14,6 +14,12 @@ SerialManager::SerialManager()
 {
     
     juce::StringPairArray portlist = SerialPort::getSerialPortPaths();
+    
+    DBG("------------------- PORTLIST -------------------");
+    DBG(portlist.getDescription());
+    DBG("------------------------------------------------");
+    
+    
     if(portlist.size())
     {
         //open the first port on the system
@@ -33,8 +39,8 @@ SerialManager::SerialManager()
         if(pSP->exists())
         {
             //create streams for reading/writing
-            SerialPortOutputStream * pOutputStream = new SerialPortOutputStream(pSP);
-            SerialPortInputStream * pInputStream = new SerialPortInputStream(pSP);
+            pOutputStream.reset(new SerialPortOutputStream(pSP));
+            pInputStream.reset(new SerialPortInputStream(pSP));
 
             pOutputStream->write("hello world via serial", 22); //write some bytes
 
@@ -73,3 +79,9 @@ void SerialManager::changeListenerCallback (juce::ChangeBroadcaster* source)
 {
     DBG("a new line is available");
 }
+
+void SerialManager::showLed(bool shouldShowLed)
+{
+    
+}
+

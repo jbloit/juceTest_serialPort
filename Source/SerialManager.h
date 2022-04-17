@@ -17,7 +17,14 @@ public:
     SerialManager();
     ~SerialManager();
 
-    void changeListenerCallback (juce::ChangeBroadcaster* source) override;
+    void showLed(bool shouldShowLed);
     
+    
+private:
+    std::unique_ptr<SerialPortInputStream> pInputStream;
+    std::unique_ptr<SerialPortOutputStream> pOutputStream;
+    
+    
+    void changeListenerCallback (juce::ChangeBroadcaster* source) override;
 };
 

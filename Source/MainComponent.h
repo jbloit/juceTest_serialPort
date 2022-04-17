@@ -1,6 +1,7 @@
 #pragma once
 
 #include <JuceHeader.h>
+#include "SerialManager.h"
 
 //==============================================================================
 /*
@@ -22,6 +23,9 @@ private:
     //==============================================================================
     // Your private member variables go here...
 
+    juce::SharedResourcePointer<SerialManager> serialManager;
 
+    juce::ToggleButton toggleButton;
+    
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainComponent)
 };
