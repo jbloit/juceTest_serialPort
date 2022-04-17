@@ -31,16 +31,17 @@ SerialManager::SerialManager()
                          SerialPortConfig::FLOWCONTROL_NONE
                          );
         
-        SerialPort * pSP = new SerialPort(portlist.getAllValues()[0], config, [](juce::String a, juce::String b){
-            DBG(a); DBG(b);
-            
-        });
+        
+        dbgFunc = [](juce::String a, juce::String b) { DBG(a); DBG(b); };
+        
+        
+        pSP.reset(new SerialPort(portlist.getAllValues()[1], config, dbgFunc ));
         
         if(pSP->exists())
         {
             //create streams for reading/writing
-            pOutputStream.reset(new SerialPortOutputStream(pSP));
-            pInputStream.reset(new SerialPortInputStream(pSP));
+            pOutputStream.reset(new SerialPortOutputStream(pSP.get()));
+            pInputStream.reset(new SerialPortInputStream(pSP.get()));
 
             pOutputStream->write("hello world via serial", 22); //write some bytes
 
@@ -83,5 +84,26 @@ void SerialManager::changeListenerCallback (juce::ChangeBroadcaster* source)
 void SerialManager::showLed(bool shouldShowLed)
 {
     
+    
+    if(pSP->exists())
+    {
+        //create streams for reading/writing
+        
+//        pOutputStream.reset(new SerialPortOutputStream(pSP.get()));
+//        pInputStream.reset(new SerialPortInputStream(pSP.get()));
+
+        if (shouldShowLed)
+        {
+            if (pOutputStream != nullptr)
+                pOutputStream->write("1", 1); //write some bytes
+        }
+        
+        else
+        {
+            if (pOutputStream != nullptr)
+                pOutputStream->write("0", 1); //write some bytes
+        }
+            
+    }
 }
 

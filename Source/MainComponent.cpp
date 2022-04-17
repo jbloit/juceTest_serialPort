@@ -8,9 +8,10 @@ MainComponent::MainComponent()
     toggleButton.onStateChange = [this]()
     {
         if (toggleButton.getToggleState())
-        {
-            serialManager->
-        }
+            serialManager->showLed(true);
+         else
+            serialManager->showLed(false);
+            
     };
     
     setSize (600, 400);

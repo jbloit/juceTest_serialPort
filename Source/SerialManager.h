@@ -21,8 +21,12 @@ public:
     
     
 private:
+    std::unique_ptr<SerialPort> pSP;
     std::unique_ptr<SerialPortInputStream> pInputStream;
     std::unique_ptr<SerialPortOutputStream> pOutputStream;
+    
+
+    std::function<void (juce::String, juce::String)> dbgFunc;
     
     
     void changeListenerCallback (juce::ChangeBroadcaster* source) override;

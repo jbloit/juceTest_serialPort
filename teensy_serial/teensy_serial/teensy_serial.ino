@@ -5,7 +5,7 @@ void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
     // initialize the ledPin as an output:
-  //pinMode(ledPin, OUTPUT);
+  pinMode(ledPin, OUTPUT);
 }
 
 void loop() {
@@ -20,16 +20,18 @@ void loop() {
     incomingByte = Serial.read();
     Serial.print("USB received: ");
     Serial.println(incomingByte, DEC);
-/*
-    if (incomingByte > 60)
+    
+    if (incomingByte == 49)
     {
       digitalWrite(ledPin, HIGH);
+      Serial.println(incomingByte);
     } 
-    else 
+    if (incomingByte == 48)
     {
-    digitalWrite(ledPin, LOW);
+      digitalWrite(ledPin, LOW);
+      Serial.println(incomingByte);
     }
-    */
+    
 
   }
 }
